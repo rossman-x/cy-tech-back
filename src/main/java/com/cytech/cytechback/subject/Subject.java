@@ -1,5 +1,4 @@
-package com.cytech.cytechback.speciality;
-
+package com.cytech.cytechback.subject;
 
 import com.cytech.cytechback.user.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -8,21 +7,21 @@ import javax.persistence.*;
 import java.util.Set;
 
 @Entity()
-@Table(name = "specialite")
-@SequenceGenerator(name = "specs_id_seq", sequenceName = "specs_id_seq", allocationSize = 1)
-public class Speciality {
+@Table(name = "matieres")
+@SequenceGenerator(name = "matieres_id_seq", sequenceName = "matieres_id_seq", allocationSize = 1)
+public class Subject {
 
     @Id
     @Column(name = "Id")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "specs_id_seq")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "matieres_id_seq")
     private Long id;
 
     @Column(name = "Nom", length = 50, nullable = false)
     private String name;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "speciality")
-    private Set<User> users;
+    @ManyToMany(mappedBy = "subjects")
+    Set<User> users;
 
     public Long getId() {
         return id;

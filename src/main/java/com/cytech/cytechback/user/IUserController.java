@@ -1,4 +1,4 @@
-package com.cytech.cytechback.student;
+package com.cytech.cytechback.user;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -8,9 +8,9 @@ import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
-public interface IStudentController {
+public interface IUserController {
 
-    @Operation(summary = "Get All students")
+    @Operation(summary = "Get All users")
     @ApiResponses(value = {@ApiResponse(responseCode = "200"), @ApiResponse(responseCode = "404", content = @Content)})
-    ResponseEntity<List<StudentDTO>> getStudents();
+    ResponseEntity<List<UserDTO>> getUsers();
 }
