@@ -1,7 +1,11 @@
 package com.cytech.cytechback.user;
 
+import com.cytech.cytechback.orientation.Orientation;
+import com.cytech.cytechback.score.Score;
 import com.cytech.cytechback.speciality.Speciality;
 import com.cytech.cytechback.subject.Subject;
+import com.cytech.cytechback.wish.Wish;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -10,7 +14,7 @@ import java.util.Set;
 @Entity()
 @Table(name = "users")
 @SequenceGenerator(name = "users_id_seq", sequenceName = "users_id_seq", allocationSize = 1)
-public class User {
+public class User implements Comparable<User> {
 
     @Id
     @Column(name = "Id")
@@ -39,23 +43,55 @@ public class User {
     @Column(name = "Statut", length = 20, nullable = false)
     private String status;
 
+    @Column(name = "heures_absence", nullable = false)
+    private int hoursAbsent;
+
     @ManyToOne
-    @JoinColumn(name="Id_Specialite", nullable=false)
+    @JsonIgnore
+    @JoinColumn(name = "Id_Specialite", nullable = false)
     private Speciality speciality;
 
-    @ManyToMany
-    @JoinTable(
-            name = "contenir",
-            joinColumns = @JoinColumn(name = "Id"),
-            inverseJoinColumns = @JoinColumn(name = "Id_specialite"))
-    private Set<Subject> subjects;
+    @OneToMany(mappedBy = "userOfWish")
+    @JsonIgnore
+    private Set<Wish> wishSet;
 
-    public Set<Subject> getSubjects() {
-        return subjects;
+    @OneToMany(mappedBy = "scoreUser")
+    @JsonIgnore
+    private Set<Score> scores;
+
+    @OneToOne(mappedBy = "userOption")
+    private Orientation orientation;
+
+    public Orientation getOrientation() {
+        return orientation;
     }
 
-    public void setSubjects(Set<Subject> subjects) {
-        this.subjects = subjects;
+    public void setOrientation(Orientation orientation) {
+        this.orientation = orientation;
+    }
+
+    public Set<Score> getScores() {
+        return scores;
+    }
+
+    public void setScores(Set<Score> scores) {
+        this.scores = scores;
+    }
+
+    public int getHoursAbsent() {
+        return hoursAbsent;
+    }
+
+    public void setHoursAbsent(int hoursAbsent) {
+        this.hoursAbsent = hoursAbsent;
+    }
+
+    public Set<Wish> getWishSet() {
+        return wishSet;
+    }
+
+    public void setWishSet(Set<Wish> wishSet) {
+        this.wishSet = wishSet;
     }
 
     public Long getId() {
@@ -128,5 +164,25 @@ public class User {
 
     public void setSpeciality(Speciality speciality) {
         this.speciality = speciality;
+    }
+
+    public double getAverage(int subjectId) {
+        Set<Score> scores = this.getScores();
+        double sum = 0;
+        double sumMax = 0;
+        for (Score score : scores) {
+            Subject subject = score.getScoreSubject();
+            if (subjectId == -1 || subject.getId() == subjectId) {
+                int coef = subject.getCoef();
+                sum += coef * score.getScore();
+                sumMax += coef * score.getScoreMax();
+            }
+        }
+        return sumMax == 0 ? 0 : sum  / sumMax;
+    }
+
+    @Override
+    public int compareTo(User o) {
+        return this.getHoursAbsent() - o.getHoursAbsent();
     }
 }

@@ -1,12 +1,10 @@
 package com.cytech.cytechback.user;
 
+import com.cytech.cytechback.orientation.Orientation;
 import com.cytech.cytechback.common.SimpleDto;
 import com.cytech.cytechback.speciality.Speciality;
-import com.cytech.cytechback.subject.Subject;
 
 import java.util.Date;
-import java.util.List;
-import java.util.Set;
 
 public class UserDTO implements SimpleDto {
 
@@ -28,14 +26,24 @@ public class UserDTO implements SimpleDto {
 
     private Speciality speciality;
 
-    private Set<Subject> subjects;
+    private int hoursAbsent;
 
-    public Set<Subject> getSubjects() {
-        return subjects;
+    private Orientation orientation;
+
+    public Orientation getOrientation() {
+        return orientation;
     }
 
-    public void setSubjects(Set<Subject> subjects) {
-        this.subjects = subjects;
+    public void setOrientation(Orientation orientation) {
+        this.orientation = orientation;
+    }
+
+    public int getHoursAbsent() {
+        return hoursAbsent;
+    }
+
+    public void setHoursAbsent(int hoursAbsent) {
+        this.hoursAbsent = hoursAbsent;
     }
 
     public Long getId() {

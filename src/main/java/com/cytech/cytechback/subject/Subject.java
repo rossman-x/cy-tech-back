@@ -1,6 +1,8 @@
 package com.cytech.cytechback.subject;
 
-import com.cytech.cytechback.user.User;
+import com.cytech.cytechback.score.Score;
+import com.cytech.cytechback.speciality.Speciality;
+import com.cytech.cytechback.ue.UE;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
@@ -19,9 +21,45 @@ public class Subject {
     @Column(name = "Nom", length = 50, nullable = false)
     private String name;
 
+    @Column(name = "coef", nullable = false)
+    private int coef;
+
     @JsonIgnore
     @ManyToMany(mappedBy = "subjects")
-    Set<User> users;
+    private Set<Speciality> specialities;
+
+    @ManyToOne
+    @JsonIgnore
+    @JoinColumn(name = "id_uniteenseignement", nullable = false)
+    private UE uniteEnseignement;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "scoreSubject")
+    private Set<Score> scores;
+
+    public int getCoef() {
+        return coef;
+    }
+
+    public void setCoef(int coef) {
+        this.coef = coef;
+    }
+
+    public Set<Score> getScores() {
+        return scores;
+    }
+
+    public void setScores(Set<Score> scores) {
+        this.scores = scores;
+    }
+
+    public UE getUe() {
+        return uniteEnseignement;
+    }
+
+    public void setUe(UE ue) {
+        this.uniteEnseignement = ue;
+    }
 
     public Long getId() {
         return id;
@@ -39,11 +77,11 @@ public class Subject {
         this.name = name;
     }
 
-    public Set<User> getUsers() {
-        return users;
+    public Set<Speciality> getSpecialities() {
+        return specialities;
     }
 
-    public void setUsers(Set<User> users) {
-        this.users = users;
+    public void setSpecialities(Set<Speciality> specialities) {
+        this.specialities = specialities;
     }
 }

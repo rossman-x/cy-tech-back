@@ -1,5 +1,6 @@
 package com.cytech.cytechback.speciality;
 
+import com.cytech.cytechback.user.UserDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -20,5 +21,12 @@ public class SpecialityController implements ISpecialityController{
     @Override
     public ResponseEntity<List<SpecialityDTO>> getSpecialities() {
         return ResponseEntity.ok().body(specialityService.getSpecialities());
+    }
+
+    public void createSpecialityForStudent(int role, int speciality, int option) {
+        if(role == 3){
+            UserDTO dto = new UserDTO();
+
+        }
     }
 }
