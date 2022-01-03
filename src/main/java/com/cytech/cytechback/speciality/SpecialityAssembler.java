@@ -14,6 +14,7 @@ public class SpecialityAssembler implements SimpleAssembler<SpecialityDTO, Speci
         SpecialityDTO dto = new SpecialityDTO();
         dto.setId(speciality.getId());
         dto.setName(speciality.getName());
+        dto.setSubjectSet(speciality.getSubjects());
         return dto;
     }
 
