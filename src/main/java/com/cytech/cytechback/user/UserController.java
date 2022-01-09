@@ -48,4 +48,18 @@ public class UserController implements IUserController {
     public ResponseEntity<UserDTO> createUser(UserDTO userDTO) {
         return ResponseEntity.ok(this.userService.createUser(userDTO));
     }
+
+    @GetMapping(path = "create_orientation")
+    @Override
+    public ResponseEntity<Void> createUserOrientation(Long idUser, Long idOption) {
+        this.userService.createUserOrientation(idUser, idOption);
+        return null;
+    }
+
+    @GetMapping(path = "delete")
+    @Override
+    public ResponseEntity<Void> deleteUserById(Long id) {
+        this.userService.deleteUserById(id);
+        return ResponseEntity.ok().build();
+    }
 }

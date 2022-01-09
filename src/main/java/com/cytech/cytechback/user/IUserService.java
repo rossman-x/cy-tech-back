@@ -12,4 +12,7 @@ public interface IUserService {
 
     UserDTO createUser(UserDTO userDTO);
 
+    void createUserOrientation(Long userId, Long optionId);
+
+    void deleteUserById(Long userId);
 }

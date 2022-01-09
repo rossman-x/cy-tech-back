@@ -1,6 +1,7 @@
 package com.cytech.cytechback.message;
 
 import com.cytech.cytechback.common.SimpleDto;
+import com.cytech.cytechback.option.Option;
 import com.cytech.cytechback.user.User;
 
 public class MessageDTO implements SimpleDto {
@@ -9,6 +10,15 @@ public class MessageDTO implements SimpleDto {
     private String content;
     private User sender;
     private User receiver;
+    private Option option;
+
+    public Option getOption() {
+        return option;
+    }
+
+    public void setOption(Option option) {
+        this.option = option;
+    }
 
     public Long getId() {
         return id;

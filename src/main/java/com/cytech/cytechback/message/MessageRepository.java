@@ -7,5 +7,5 @@ import java.util.Set;
 
 @Service
 public interface MessageRepository extends JpaRepository<Message, Long> {
-    Set<Message> findAllBySenderId(Long senderId);
+    Set<Message> findAllByReceiverId(Long senderId);
 }

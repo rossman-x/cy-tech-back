@@ -1,5 +1,8 @@
 package com.cytech.cytechback.user;
 
+import com.cytech.cytechback.option.Option;
+import com.cytech.cytechback.orientation.Orientation;
+import com.cytech.cytechback.orientation.OrientationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +16,9 @@ public class UserService implements IUserService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private OrientationRepository orientationRepository;
 
     @Override
     public List<UserDTO> getUsers() {
@@ -45,5 +51,26 @@ public class UserService implements IUserService {
         User u = this.userAssembler.fromDto(userDTO);
         User savedUser = this.userRepository.save(u);
         return this.userAssembler.toDto(savedUser);
+    }
+
+    @Override
+    public void createUserOrientation(Long userId, Long optionId) {
+
+        Orientation o = new Orientation();
+        o.setRemarque("Set manually after a request.");
+        Option op = new Option();
+        op.setId(optionId);
+        o.setOption(op);
+        User user = new User();
+        user.setId(userId);
+        o.setUserOption(user);
+        this.orientationRepository.deleteAllByUserOptionId(userId);
+        this.orientationRepository.save(o);
+
+    }
+
+    @Override
+    public void deleteUserById(Long userId) {
+        this.userRepository.deleteById(userId);
     }
 }

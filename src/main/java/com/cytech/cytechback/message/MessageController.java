@@ -25,4 +25,11 @@ public class MessageController implements IMessageController {
     public ResponseEntity<List<MessageDTO>> getReceivedMessage(int user_id) {
         return ResponseEntity.ok(this.messageService.getReceivedMessages(user_id));
     }
+
+    @GetMapping(path = "/delete")
+    @Override
+    public ResponseEntity<Void> deleteMessage(int messageId) {
+        this.messageService.deleteMessage(messageId);
+        return ResponseEntity.ok().build();
+    }
 }

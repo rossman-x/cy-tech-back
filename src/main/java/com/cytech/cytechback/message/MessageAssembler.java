@@ -16,6 +16,7 @@ public class MessageAssembler implements SimpleAssembler<MessageDTO, Message> {
         dto.setContent(document.getContent());
         dto.setReceiver(document.getReceiver());
         dto.setSender(document.getSender());
+        dto.setOption(document.getOption());
         return dto;
     }
 
@@ -26,6 +27,7 @@ public class MessageAssembler implements SimpleAssembler<MessageDTO, Message> {
         m.setReceiver(dto.getReceiver());
         m.setSender(dto.getSender());
         m.setContent(dto.getContent());
+        m.setOption(dto.getOption());
         return m;
     }
 

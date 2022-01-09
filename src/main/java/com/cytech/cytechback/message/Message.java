@@ -1,9 +1,11 @@
 package com.cytech.cytechback.message;
 
+import com.cytech.cytechback.option.Option;
 import com.cytech.cytechback.user.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import java.util.Optional;
 
 @Entity
 @Table(name = "message")
@@ -26,6 +28,19 @@ public class Message {
     @JsonIgnore
     @JoinColumn(name = "id_receiver", nullable = false)
     private User receiver;
+
+    @ManyToOne
+    @JsonIgnore
+    @JoinColumn(name = "recours_option")
+    private Option option;
+
+    public Option getOption() {
+        return option;
+    }
+
+    public void setOption(Option option) {
+        this.option = option;
+    }
 
     public Long getId() {
         return id;

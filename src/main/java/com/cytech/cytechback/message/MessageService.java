@@ -24,8 +24,13 @@ public class MessageService implements IMessageService {
 
     @Override
     public List<MessageDTO> getReceivedMessages(int user_id) {
-        Set<Message> messageSet = this.messageRepository.findAllBySenderId(Long.valueOf(user_id));
+        Set<Message> messageSet = this.messageRepository.findAllByReceiverId(Long.valueOf(user_id));
         List<Message> messageList = messageSet.stream().collect(Collectors.toList());
         return this.messageAssembler.toDtoList(messageList);
+    }
+
+    @Override
+    public void deleteMessage(int messageId) {
+        this.messageRepository.deleteById(Long.valueOf(messageId));
     }
 }

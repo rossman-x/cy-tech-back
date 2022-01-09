@@ -28,4 +28,14 @@ public interface IUserController {
     @Operation(summary = "Create a new user using userDTO")
     @ApiResponses(value = {@ApiResponse(responseCode = "201"), @ApiResponse(responseCode = "404", content = @Content)})
     ResponseEntity<UserDTO> createUser(@RequestBody UserDTO userDTO);
+
+    @Operation(summary = "Create an orientation for user")
+    @ApiResponses(value = {@ApiResponse(responseCode = "201"), @ApiResponse(responseCode = "404", content = @Content)})
+    ResponseEntity<Void> createUserOrientation(@RequestParam("id_user") Long idUser, @RequestParam("id_option") Long idOption);
+
+    @Operation(summary = "Create a new user using userDTO")
+    @ApiResponses(value = {@ApiResponse(responseCode = "201"), @ApiResponse(responseCode = "404", content = @Content)})
+    ResponseEntity<Void> deleteUserById(@RequestParam("user_id") Long id);
+
+
 }

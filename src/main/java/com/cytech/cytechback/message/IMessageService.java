@@ -7,4 +7,6 @@ public interface IMessageService {
     void createMessage(MessageDTO dto);
 
     List<MessageDTO> getReceivedMessages(int user_id);
+
+    void deleteMessage(int messageId);
 }
